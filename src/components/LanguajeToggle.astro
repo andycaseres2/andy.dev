@@ -24,7 +24,6 @@ const LANGUAGES = [{language:"En", icon: UsaIcon }, {language:"Es", icon: SpainI
     <ul>
       {LANGUAGES.map((language) => (
         <li
-          key={language.language}
           className="languages-menu-option px-2 py-1.5 cursor-pointer hover:bg-neutral-400/40 dark:hover:bg-gray-500/50 rounded-sm"
         >
           <div class="languages-menu-option flex items-center justify-between gap-4 p-1 hover:bg-neutral-400/40 cursor-pointer">
@@ -66,7 +65,6 @@ const LANGUAGES = [{language:"En", icon: UsaIcon }, {language:"Es", icon: SpainI
     const languageToggleBtn = document.getElementById('language-toggle-btn');
     const languageOptions = document.querySelectorAll('.languages-menu-option');
     const languageIcons = document.querySelectorAll('.language-icon');
-    const languagePreference = localStorage.getItem('language') || 'En';
 
     const updateLanguageUI = (language) => {
       languageIcons.forEach(icon => {
