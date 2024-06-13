@@ -1,0 +1,39 @@
+---
+import ExperienceItem from "./ExperienceItem.astro"
+const EXPERIENCIE = [
+  {
+    date: "January 2024 - Currently - (Part-time)",
+    title: "Frontend Developer",
+    company: "LogoTexo",
+    description:
+      "I specialize in developing and creating projects from scratch using various frameworks such as ReactJs and Angular. My work includes developing new functionalities and components, optimizing the frontend with UI concepts focused on user experience, and correcting errors and bugs by applying best practices.",
+    link: "https://www.logotexo.com/en/",
+  },
+  {
+    date: "December 2022 - Currently",
+    title: "Frontend Developer",
+    company: "CasaToro",
+    description:
+      "I contribute to the creation of new components, optimize architecture, and enhance user experience in applications. My work involves implementing new features and functionality, closely collaborating with the design team and other developers to ensure a high-quality final product. I perform code refactorings to improve application efficiency, scalability, and maintainability, and proactively detect and fix bugs and technical issues, working collaboratively with the team to ensure a bug-free product.",
+    link:"https://www.casatoro.com/",
+  },
+   {
+    date: "May 2022 - October 2022",
+    title: "Frontend Developer Jr. ",
+    company: "Datarte",
+    description:
+      "I collaborate in creating attractive and functional user interfaces, ensuring they comply with design and usability standards. I develop and create new components to improve the architecture and user experience of applications. Additionally, I proactively identify and fix errors and technical issues, working closely with the team to ensure quality delivery.",
+    link:"https://www.datarte.art/",
+  },
+]
+---
+
+<ol class="relative mt-16">
+  {
+    EXPERIENCIE.map((experiencie) => (
+      <li class="">
+        <ExperienceItem {...experiencie} />
+      </li>
+    ))
+  }
+</ol>

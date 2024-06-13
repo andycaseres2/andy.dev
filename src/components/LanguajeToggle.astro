@@ -1,0 +1,111 @@
+---
+import Languages from "./icons/Languages.astro"
+import SpainIcon from "./icons/SpainIcon.astro";
+import UsaIcon from "./icons/UsaIcon.astro";
+
+const LANGUAGES = [{language:"En", icon: UsaIcon }, {language:"Es", icon: SpainIcon}, {language:"System"}]
+---
+
+<div class="relative ml-1 mr-1">
+  <button
+    id="language-toggle-btn"
+    class="appearance-none border-none flex items-center hover:scale-125 transition"
+  >
+    <span id="language-icons" class="flex">
+      <span id="En" class="language-icon size-5 transition-all hidden">En</span>
+      <span id="Es" class="language-icon size-5 transition-all hidden">Es</span>
+      <Languages id="System" class="language-icon size-5 transition-all hidden" />
+    </span>
+  </button>
+  <div
+    id="languages-menu"
+    class="absolute hidden scale-80 top-8 right-0 text-sm min-w-[8rem] rounded-md border border-gray-100 bg-white/90 dark:bg-gray-900/90 dark:border-gray-500/20 shadow-[0_3px_10px_rgb(0,0,0,0.2)] backdrop-blur-md"
+  >
+    <ul>
+      {LANGUAGES.map((language) => (
+        <li
+          key={language.language}
+          className="languages-menu-option px-2 py-1.5 cursor-pointer hover:bg-neutral-400/40 dark:hover:bg-gray-500/50 rounded-sm"
+        >
+          <div class="languages-menu-option flex items-center justify-between gap-4 p-1 hover:bg-neutral-400/40 cursor-pointer">
+            <span>{language.language}</span>
+            {language.icon && <language.icon />}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+<style>
+  #languages-menu.open {
+    display: block;
+    animation: scale-up-center 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+
+  @keyframes scale-up-center {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .language-icon.visible {
+    display: block;
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const languagesMenu = document.getElementById('languages-menu');
+    const languageToggleBtn = document.getElementById('language-toggle-btn');
+    const languageOptions = document.querySelectorAll('.languages-menu-option');
+    const languageIcons = document.querySelectorAll('.language-icon');
+    const languagePreference = localStorage.getItem('language') || 'En';
+
+    const updateLanguageUI = (language) => {
+      languageIcons.forEach(icon => {
+        icon.classList.remove('visible');
+      });
+
+      const selectedIcon = document.getElementById(language);
+      if (selectedIcon) {
+        selectedIcon.classList.add('visible');
+      }
+    };
+
+    const getLanguagePreference = () => {
+      return localStorage.getItem('language') || 'En';
+    };
+
+    const updateLanguage = (language) => {
+      localStorage.setItem('language', language);
+      updateLanguageUI(language);
+    };
+
+    updateLanguageUI(getLanguagePreference());
+
+    document.addEventListener('click', () => {
+      languagesMenu.classList.remove('open');
+    });
+
+    languageToggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isClosed = !languagesMenu.classList.contains('open');
+      languagesMenu.classList[isClosed ? 'add' : 'remove']('open');
+    });
+
+    languageOptions.forEach((element) => {
+      element.addEventListener('click', (e) => {
+        const selectedLanguage = e.target.innerText.trim();
+        updateLanguage(selectedLanguage);
+        languagesMenu.classList.remove('open');
+      });
+    });
+  });
+</script>
